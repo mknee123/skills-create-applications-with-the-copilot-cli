@@ -37,6 +37,29 @@ function div(a, b) {
   return a / b
 }
 
+function modulo(a, b) {
+  a = ensureNumber(a)
+  b = ensureNumber(b)
+  if (b === 0) {
+    throw new RangeError('Modulo by zero')
+  }
+  return a % b
+}
+
+function power(base, exponent) {
+  base = ensureNumber(base)
+  exponent = ensureNumber(exponent)
+  return Math.pow(base, exponent)
+}
+
+function squareRoot(n) {
+  n = ensureNumber(n)
+  if (n < 0) {
+    throw new RangeError('Square root of negative number')
+  }
+  return Math.sqrt(n)
+}
+
 function calculate(op, a, b) {
   switch (op) {
     case 'add':
@@ -51,9 +74,20 @@ function calculate(op, a, b) {
     case 'div':
     case '/':
       return div(a, b)
+    case 'mod':
+    case '%':
+      return modulo(a, b)
+    case 'power':
+    case 'pow':
+    case '**':
+    case '^':
+      return power(a, b)
+    case 'sqrt':
+    case '√':
+      return squareRoot(a)
     default:
       throw new Error(`Unsupported operation: ${op}`)
   }
 }
 
-module.exports = { add, sub, mul, div, calculate }
+module.exports = { add, sub, mul, div, modulo, power, squareRoot, calculate }

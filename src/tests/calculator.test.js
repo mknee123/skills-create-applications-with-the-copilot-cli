@@ -1,7 +1,7 @@
 // Tests for calculator module
 // Covers operations: addition, subtraction, multiplication, division
 
-const { add, sub, mul, div, calculate } = require('../calculator')
+const { add, sub, mul, div, modulo, power, squareRoot, calculate } = require('../calculator')
 
 describe('Calculator basic operations', () => {
   test('addition: 2 + 3 = 5', () => {
@@ -49,5 +49,30 @@ describe('Calculator basic operations', () => {
     expect(calculate('*', 6, 7)).toBe(42)
     expect(calculate('div', 9, 3)).toBe(3)
     expect(calculate('/', 9, 3)).toBe(3)
+  })
+
+  test('modulo operation and calculate support', () => {
+    expect(modulo(5, 2)).toBe(1)
+    expect(modulo('5', '2')).toBe(1)
+    expect(() => modulo(1, 0)).toThrow(RangeError)
+    expect(calculate('mod', 5, 2)).toBe(1)
+    expect(calculate('%', 5, 2)).toBe(1)
+  })
+
+  test('power operation and calculate support', () => {
+    expect(power(2, 3)).toBe(8)
+    expect(power('2', '8')).toBe(256)
+    expect(calculate('power', 2, 3)).toBe(8)
+    expect(calculate('pow', 2, 8)).toBe(256)
+    expect(calculate('**', 2, 8)).toBe(256)
+    expect(calculate('^', 2, 3)).toBe(8)
+  })
+
+  test('squareRoot operation and edge cases', () => {
+    expect(squareRoot(16)).toBe(4)
+    expect(squareRoot('9')).toBe(3)
+    expect(calculate('sqrt', 16)).toBe(4)
+    expect(() => squareRoot(-1)).toThrow(RangeError)
+    expect(() => calculate('sqrt', -4)).toThrow(RangeError)
   })
 })
